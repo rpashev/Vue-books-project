@@ -1,3 +1,3 @@
 <template>
-    <p>wtf</p>
+    <div>Register</div>
 </template>
