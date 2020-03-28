@@ -13,6 +13,15 @@
       <router-link to="/register" tag="li" exact>
         <a>Register</a>
       </router-link>
+      <router-link to="/toread" tag="li" exact>
+        <a>Books to read</a>
+      </router-link>
+      <router-link to="/alreadyread" tag="li" exact>
+        <a>Books I've read</a>
+      </router-link>
+       <router-link to="/logout" tag="li" exact>
+        <a>Logout</a>
+      </router-link>
     </ul>
     <p>Welcome user!</p>
   </header>
