@@ -1,23 +1,39 @@
 <template>
-  <div class="booklist" >
-      <app-book-card></app-book-card>
-      <app-book-card></app-book-card>
-      <app-book-card></app-book-card>
-      <app-book-card></app-book-card>
-      <app-book-card></app-book-card>
-      <app-book-card></app-book-card>
-      <app-book-card></app-book-card>
-      <app-book-card></app-book-card>
-      <app-book-card></app-book-card>
+  <div class="booklist">
+    <app-book-card v-for="book in books" :key="book.id" :book="book"></app-book-card>
+    <div v-if="!this.isLoaded">Loading...</div>
   </div>
 </template>
 
 <script>
 import Card from "./Bookcard";
-
+import db from "../firebase-config";
 export default {
   components: {
     appBookCard: Card
+  },
+  data() {
+    return {
+      books: [],
+     
+    };
+  },
+  created() {
+    db.collection("books")
+      .get()
+      .then(snapshot => {
+        snapshot.docs.forEach(doc => {
+          let book = { ...doc.data().book, id: doc.id };
+          this.books.unshift(book);
+        });
+      })
+      .catch(err => console.log(err));
+    
+  },
+  computed: {
+    isLoaded(){
+      return !!this.books.length;
+    }
   }
 };
 </script>
@@ -28,5 +44,4 @@ export default {
   display: flex;
   flex-wrap: wrap;
 }
-
 </style>

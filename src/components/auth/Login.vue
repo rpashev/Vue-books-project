@@ -37,4 +37,7 @@ form input,
 label {
   display: block;
 }
+input {
+  margin: 0.5rem 0;
+}
 </style>

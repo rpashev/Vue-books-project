@@ -2,10 +2,10 @@
   <div class="single-book">
     <div class="card">
       <div class="card-title">
-        <p>{{title}}</p>
-        <p>{{author}}</p>
+        <p>{{book.title}}</p>
+        <p>{{book.author}}</p>
       </div>
-      <img :src="imageLink" alt />
+      <img :src="book.imageLink" alt />
     </div>
     <div class="buttons">
         <button> ADD HERE</button>
@@ -16,13 +16,8 @@
 
 <script>
 export default {
-  data() {
-    return {
-      title: "Fairy tales",
-      author: "Hans Christian Andersen",
-      imageLink: "images/fairy-tales.jpg"
-    };
-  }
+  props: ["book"],
+ 
 };
 </script>
 
