@@ -38,15 +38,12 @@ export default {
         userId = user.uid;
 
         let userList = {
-          user: userId,
-          lists: {
             alreadyRead: [],
             toRead: []
           }
-        };
 
-        db.collection("user-lists")
-          .add(userList)
+       await db.collection("userData").doc(userId)
+          .set(userList)
           .catch(err => console.log(err));
 
         this.email = "";
