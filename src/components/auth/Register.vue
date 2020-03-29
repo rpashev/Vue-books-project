@@ -13,6 +13,10 @@
 </template>
 
 <script>
+import db from "../../firebase-config";
+import firebase from "firebase/app";
+require("firebase/auth");
+
 export default {
   data() {
     return {
@@ -23,15 +27,36 @@ export default {
     };
   },
   methods: {
-    submitHandler() {
-      console.log(this.email);
-      console.log(this.username);
-      console.log(this.password);
-      console.log(this.repeatPassword);
-      this.email = "";
-      this.password = "";
-      this.repeatPassword = "";
-      this.username = "";
+    async submitHandler() {
+      let userId = "";
+      try {
+        await firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.email, this.password);
+
+        let user = await firebase.auth().currentUser;
+        userId = user.uid;
+
+        let userList = {
+          user: userId,
+          lists: {
+            alreadyRead: [],
+            toRead: []
+          }
+        };
+
+        db.collection("user-lists")
+          .add(userList)
+          .catch(err => console.log(err));
+
+        this.email = "";
+        this.password = "";
+        this.repeatPassword = "";
+        this.username = "";
+        
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
 };
