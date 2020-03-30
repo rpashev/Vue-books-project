@@ -9,6 +9,10 @@
 </template>
 
 <script>
+
+import firebase from "firebase/app";
+require("firebase/auth");
+
 export default {
   data() {
     return {
@@ -18,9 +22,14 @@ export default {
     };
   },
   methods: {
-    submitHandler() {
-      console.log(this.email);
-      console.log(this.password);
+    async submitHandler() {
+      try {
+        await firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+        await this.$router.push('/')
+      } catch(err){
+        console.log(err)
+      }
+    
       this.email = '';
       this.password = '';
     }

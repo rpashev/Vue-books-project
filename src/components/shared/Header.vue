@@ -1,40 +1,67 @@
 <template>
-  <header>
-    <ul>
+  <header >
+    <ul >
       <router-link to="/" tag="li" exact>
         <a>Home</a>
       </router-link>
       <router-link to="/about" tag="li" exact>
         <a>About</a>
       </router-link>
-      <router-link to="/login" tag="li" exact>
-        <a>Login</a>
+      <router-link v-if="!isLoggedIn" to="/login" tag="li" exact>
+        <a >Login</a>
       </router-link>
-      <router-link to="/register" tag="li" exact>
-        <a>Register</a>
+      <router-link v-if="!isLoggedIn" to="/register" tag="li" exact>
+        <a >Register</a>
       </router-link>
-      <router-link to="/toread" tag="li" exact>
-        <a>Books to read</a>
+      <router-link v-if="isLoggedIn" to="/toread" tag="li" exact>
+        <a >Books to read</a>
       </router-link>
-      <router-link to="/alreadyread" tag="li" exact>
-        <a>Books I've read</a>
+      <router-link v-if="isLoggedIn" to="/alreadyread" tag="li" exact>
+        <a >Books I've read</a>
       </router-link>
-       <router-link to="/logout" tag="li" exact>
-        <a>Logout</a>
+      <router-link v-if="isLoggedIn" to="/logout" tag="li" exact>
+        <a  @click="logout">Logout</a>
       </router-link>
     </ul>
-    <p>Welcome user!</p>
+    <p v-if="isLoggedIn">You are logged in with {{currentUser}}</p>
   </header>
 </template>
 
 <script>
-export default {};
+import firebase from "firebase/app";
+require("firebase/auth");
+
+export default {
+  data() {
+    return {
+      isLoggedIn: false,
+      currentUser: false
+    };
+  },
+  methods: {
+    async logout() {
+      try {
+        await firebase.auth().signOut();
+      } catch (err) {
+        console.log(err);
+      }
+
+      this.$router.push("/login");
+    }
+  },
+  created() {
+    if (firebase.auth().currentUser) {
+      this.isLoggedIn = true;
+      this.currentUser = firebase.auth().currentUser.email;
+    }
+  }
+};
 </script>
 
 <style scoped>
-header{
-    display: flex;
-    align-items: center;
+header {
+  display: flex;
+  align-items: center;
 }
 ul {
   display: flex;

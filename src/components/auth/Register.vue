@@ -50,7 +50,8 @@ export default {
         this.password = "";
         this.repeatPassword = "";
         this.username = "";
-        
+       await this.$router.push('/') 
+       
       } catch (err) {
         console.log(err);
       }
