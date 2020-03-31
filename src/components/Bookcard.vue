@@ -8,8 +8,24 @@
       <img :src="book.imageLink" alt />
     </div>
     <div class="buttons">
-      <button :disabled="!userID" @click="addToWishList">WANT TO READ</button>
-      <button :disabled="!userID" @click="markAsRead">ALREADY READ</button>
+      <button
+        v-if="!isInToRead"
+        class="btn-to-read"
+        :disabled="!userID"
+        @click="addToWishList"
+      >WANT TO READ</button>
+      <button
+        v-if="!isInAlreadyRead"
+        class="btn-already-read"
+        :disabled="!userID"
+        @click="markAsRead"
+      >ALREADY READ</button>
+      <button v-if="isInToRead" class="btn-to-read removal" :disabled="!userID">DON'T WANT TO READ</button>
+      <button
+        v-if="isInAlreadyRead"
+        class="btn-already-read removal"
+        :disabled="!userID"
+      >MARK AS NOT READ</button>
     </div>
   </div>
 </template>
@@ -17,37 +33,46 @@
 <script>
 import db from "../firebase-config";
 import firebase from "firebase/app";
+import { checkListsMixin } from "../mixins/CheckListsMixin";
 
 export default {
   props: ["book"],
+  mixins: [checkListsMixin],
   data() {
     return {
-      userID: localStorage.getItem("userID")
+      userID: localStorage.getItem("userID"),
+      isInToRead: false,
+      isInAlreadyRead: false
     };
   },
-
   methods: {
     async addToWishList() {
+      //let buttonText = e.target.textContent;
       try {
-        await db.collection("userData").doc(this.userID)
-        .update({
-          toRead: firebase.firestore.FieldValue.arrayUnion(this.book.id)
-        });
-
-      } catch(err){
-        alert(err)
+        await db
+          .collection("userData")
+          .doc(this.userID)
+          .update({
+            toRead: firebase.firestore.FieldValue.arrayUnion(this.book.id)
+          });
+        this.isInToRead = true;
+      } catch (err) {
+        alert(err);
       }
     },
 
     async markAsRead() {
-       try {
-        await db.collection("userData").doc(this.userID)
-        .update({
-          alreadyRead: firebase.firestore.FieldValue.arrayUnion(this.book.id)
-        });
-
-      } catch(err){
-        alert(err)
+      this.isInToRead = true;
+      try {
+        await db
+          .collection("userData")
+          .doc(this.userID)
+          .update({
+            alreadyRead: firebase.firestore.FieldValue.arrayUnion(this.book.id)
+          });
+        this.isInAlreadyRead = true;
+      } catch (err) {
+        alert(err);
       }
     }
   }
@@ -79,15 +104,25 @@ export default {
   position: absolute;
   bottom: 0;
 }
+.buttons {
+  position: relative;
+}
 .buttons button {
-  padding: 10px;
+  text-align: center;
+  font-size: 0.6rem;
+  padding: 5px 5px;
   border-radius: 0%;
   background: #385502;
   width: 50%;
+  height: 4rem;
   cursor: pointer;
   color: white;
 }
 .buttons button[disabled] {
   background: gray;
+  cursor: default;
+}
+.buttons .removal {
+  background: #690314;
 }
 </style>
