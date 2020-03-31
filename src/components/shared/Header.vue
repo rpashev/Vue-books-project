@@ -1,6 +1,6 @@
 <template>
-  <header >
-    <ul >
+  <header>
+    <ul>
       <router-link to="/" tag="li" exact>
         <a>Home</a>
       </router-link>
@@ -8,19 +8,19 @@
         <a>About</a>
       </router-link>
       <router-link v-if="!isLoggedIn" to="/login" tag="li" exact>
-        <a >Login</a>
+        <a>Login</a>
       </router-link>
       <router-link v-if="!isLoggedIn" to="/register" tag="li" exact>
-        <a >Register</a>
+        <a>Register</a>
       </router-link>
       <router-link v-if="isLoggedIn" to="/toread" tag="li" exact>
-        <a >Books to read</a>
+        <a>Books to read</a>
       </router-link>
       <router-link v-if="isLoggedIn" to="/alreadyread" tag="li" exact>
-        <a >Books I've read</a>
+        <a>Books I've read</a>
       </router-link>
       <router-link v-if="isLoggedIn" to="/logout" tag="li" exact>
-        <a  @click="logout">Logout</a>
+        <a @click="logout">Logout</a>
       </router-link>
     </ul>
     <p v-if="isLoggedIn">You are logged in with {{currentUser}}</p>
@@ -42,6 +42,9 @@ export default {
     async logout() {
       try {
         await firebase.auth().signOut();
+        localStorage.removeItem("user");
+        localStorage.removeItem("userID");
+        
       } catch (err) {
         console.log(err);
       }
@@ -53,6 +56,8 @@ export default {
     if (firebase.auth().currentUser) {
       this.isLoggedIn = true;
       this.currentUser = firebase.auth().currentUser.email;
+      localStorage.setItem("user", this.currentUser);
+      localStorage.setItem("userID", firebase.auth().currentUser.uid);
     }
   }
 };
