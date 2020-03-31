@@ -46,7 +46,7 @@ export default {
         localStorage.removeItem("userID");
         
       } catch (err) {
-        console.log(err);
+        alert(err);
       }
 
       this.$router.push("/login");

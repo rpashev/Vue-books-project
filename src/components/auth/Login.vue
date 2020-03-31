@@ -27,7 +27,7 @@ export default {
         await firebase.auth().signInWithEmailAndPassword(this.email, this.password)
         await this.$router.push('/')
       } catch(err){
-        console.log(err)
+        alert(err)
       }
     
       this.email = '';

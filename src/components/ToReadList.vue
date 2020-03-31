@@ -8,18 +8,14 @@
 <script>
 import Card from "./Bookcard";
 import db from "../firebase-config";
+import { userListsMixin } from "../mixins/UserListsMixin";
 
 export default {
   components: {
     appBookCard: Card
   },
-  data() {
-    return {
-      books: [],
-      bookIDs: [],
-      userID: localStorage.getItem("userID")
-    };
-  },
+  mixins: [userListsMixin],
+
   created() {
     db.collection("userData")
       .doc(this.userID)
@@ -35,26 +31,10 @@ export default {
         alert("Error getting document:", error);
       });
 
-    console.log(this.bookIDs);
-    //////////////////getting the books
-    db.collection("books")
-      .get()
-      .then(snapshot => {
-        snapshot.docs.forEach(doc => {
-          if (this.bookIDs.includes(doc.id)) {
-            let book = { ...doc.data().book, id: doc.id };
-            this.books.unshift(book);
-          }
-        });
-      })
-      .catch(err => console.log(err));
+    this.loadBooks()
   },
 
-  computed: {
-    isLoaded() {
-      return !!this.books.length;
-    }
-  }
+ 
 };
 </script>
 

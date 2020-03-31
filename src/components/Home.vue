@@ -27,7 +27,7 @@ export default {
           this.books.unshift(book);
         });
       })
-      .catch(err => console.log(err));
+      .catch(err => alert(err));
     
   },
   computed: {
