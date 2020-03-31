@@ -1,7 +1,7 @@
 <template>
   <div class="booklist">
     <app-book-card v-for="book in books" :key="book.id" :book="book"></app-book-card>
-    <div v-if="!this.isLoaded">Loading...</div>
+    <div v-if="this.isLoading">Loading...</div>
   </div>
 </template>
 
@@ -17,12 +17,14 @@ export default {
   mixins: [userListsMixin],
 
   created() {
+      this.isLoading = true;
     db.collection("userData")
       .doc(this.userID)
       .get()
       .then(doc => {
         if (doc.exists) {
           doc.data().toRead.forEach(id => this.bookIDs.unshift(id));
+          this.isLoading = false;
         } else {
           alert("No such document!");
         }

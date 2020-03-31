@@ -5,7 +5,8 @@ export const userListsMixin = {
         return {
             books: [],
             bookIDs: [],
-            userID: localStorage.getItem("userID")
+            userID: localStorage.getItem("userID"),
+            isLoading: false,
         };
     },
 
@@ -24,9 +25,5 @@ export const userListsMixin = {
                 .catch(err => alert(err));
         }
     },
-    computed: {
-        isLoaded() {
-            return !!this.books.length;
-        }
-    }
+
 }

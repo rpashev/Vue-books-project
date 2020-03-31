@@ -1,7 +1,7 @@
 <template>
   <div class="booklist">
     <app-book-card v-for="book in books" :key="book.id" :book="book"></app-book-card>
-    <div v-if="!this.isLoaded">Loading...</div>
+    <div v-if="this.isLoading">Loading...</div>
   </div>
 </template>
 
@@ -15,10 +15,12 @@ export default {
   data() {
     return {
       books: [],
+      isLoading: false,
      
     };
   },
   created() {
+    this.isLoading = true;
     db.collection("books")
       .get()
       .then(snapshot => {
@@ -26,15 +28,11 @@ export default {
           let book = { ...doc.data().book, id: doc.id };
           this.books.unshift(book);
         });
+        this.isLoading = false;
       })
       .catch(err => alert(err));
     
   },
-  computed: {
-    isLoaded(){
-      return !!this.books.length;
-    }
-  }
 };
 </script>
 
