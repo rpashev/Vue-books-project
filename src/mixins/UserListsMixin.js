@@ -7,6 +7,7 @@ export const userListsMixin = {
             bookIDs: [],
             userID: localStorage.getItem("userID"),
             isLoading: false,
+        
         };
     },
 
@@ -23,7 +24,8 @@ export const userListsMixin = {
                     });
                 })
                 .catch(err => alert(err));
+                
         }
     },
-
+   
 }

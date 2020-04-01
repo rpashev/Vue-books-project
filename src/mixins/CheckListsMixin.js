@@ -1,6 +1,7 @@
 import db from "../firebase-config";
 export const checkListsMixin = {
     created() {
+        
         db.collection("userData")
             .doc(this.userID)
             .get()
@@ -35,6 +36,7 @@ export const checkListsMixin = {
             .catch(function (error) {
                 alert("Error getting document:", error);
             });
+            
     }
 }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="booklist">
-    <app-book-card v-for="book in books" :key="book.id" :book="book"></app-book-card>
+    <app-book-card  v-for="book in books" :key="book.id" :book="book"></app-book-card>
     <div v-if="this.isLoading">Loading...</div>
   </div>
 </template>

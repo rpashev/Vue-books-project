@@ -15,16 +15,22 @@
         @click="addToWishList"
       >WANT TO READ</button>
       <button
+        v-if="isInToRead"
+        class="btn-to-read removal"
+        :disabled="!userID"
+        @click="removeToRead"
+      >DON'T WANT TO READ</button>
+      <button
         v-if="!isInAlreadyRead"
         class="btn-already-read"
         :disabled="!userID"
         @click="markAsRead"
       >ALREADY READ</button>
-      <button v-if="isInToRead" class="btn-to-read removal" :disabled="!userID">DON'T WANT TO READ</button>
       <button
         v-if="isInAlreadyRead"
         class="btn-already-read removal"
         :disabled="!userID"
+        @click="removeAlreadyRead"
       >MARK AS NOT READ</button>
     </div>
   </div>
@@ -45,9 +51,9 @@ export default {
       isInAlreadyRead: false
     };
   },
+
   methods: {
     async addToWishList() {
-      //let buttonText = e.target.textContent;
       try {
         await db
           .collection("userData")
@@ -60,9 +66,7 @@ export default {
         alert(err);
       }
     },
-
     async markAsRead() {
-      this.isInToRead = true;
       try {
         await db
           .collection("userData")
@@ -74,6 +78,33 @@ export default {
       } catch (err) {
         alert(err);
       }
+    },
+    async removeToRead() {
+      try {
+        await db
+          .collection("userData")
+          .doc(this.userID)
+          .update({
+            toRead: firebase.firestore.FieldValue.arrayRemove(this.book.id)
+          });
+        this.isInToRead = false;
+      } catch (err) {
+        alert(err);
+      }
+    },
+
+    async removeAlreadyRead() {
+      try {
+        await db
+          .collection("userData")
+          .doc(this.userID)
+          .update({
+            alreadyRead: firebase.firestore.FieldValue.arrayRemove(this.book.id)
+          });
+        this.isInAlreadyRead = false;
+      } catch (err) {
+        alert(err);
+      }
     }
   }
 };
@@ -82,7 +113,7 @@ export default {
 <style scoped>
 .single-book {
   margin: 3rem;
-  box-shadow: 5px 10px #cccaca;
+  box-shadow: 5px 5px #cccaca;
   border-radius: 3%;
 }
 .single-book:hover {
@@ -92,7 +123,7 @@ export default {
 .card {
   border: 2px solid black;
   position: relative;
-  width: 250px;
+  width: 270px;
   height: 420px;
 }
 .card .card-title p {
@@ -109,7 +140,7 @@ export default {
 }
 .buttons button {
   text-align: center;
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   padding: 5px 5px;
   border-radius: 0%;
   background: #385502;

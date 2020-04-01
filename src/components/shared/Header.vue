@@ -13,11 +13,14 @@
       <router-link v-if="!isLoggedIn" to="/register" tag="li" exact>
         <a>Register</a>
       </router-link>
-      <router-link v-if="isLoggedIn" to="/toread" tag="li" exact>
+      <router-link v-if="isLoggedIn" to="/to-read" tag="li" exact>
         <a>Books to read</a>
       </router-link>
-      <router-link v-if="isLoggedIn" to="/alreadyread" tag="li" exact>
+      <router-link v-if="isLoggedIn" to="/already-read" tag="li" exact>
         <a>Books I've read</a>
+      </router-link>
+      <router-link v-if="isLoggedIn" to="/add-book" tag="li" exact>
+        <a>Add a Book</a>
       </router-link>
       <router-link v-if="isLoggedIn" to="/logout" tag="li" exact>
         <a @click="logout">Logout</a>

@@ -17,7 +17,8 @@ export default {
   mixins: [userListsMixin],
 
   created() {
-      this.isLoading = true;
+    
+    this.isLoading = true;
     db.collection("userData")
       .doc(this.userID)
       .get()
@@ -33,10 +34,11 @@ export default {
         alert("Error getting document:", error);
       });
 
-    this.loadBooks()
+    this.loadBooks();
+    
+    
   },
-
- 
+  
 };
 </script>
 
