@@ -1,6 +1,6 @@
 <template>
   <div class="booklist">
-    <app-book-card v-for="book in books" :key="book.id" :book="book"></app-book-card>
+    <app-book-card @removedIdEvent="remove" v-for="book in books" :key="book.id" :book="book"></app-book-card>
     <div v-if="this.isLoading">Loading...</div>
     <!-- <div v-if="this.isLoaded">No books yet!</div> -->
   </div>
@@ -9,7 +9,7 @@
 <script>
 import Card from "./Bookcard";
 import db from "../firebase-config";
-import { userListsMixin }   from "../mixins/UserListsMixin";
+import { userListsMixin } from "../mixins/UserListsMixin";
 
 export default {
   components: {
@@ -35,14 +35,17 @@ export default {
       });
 
     this.loadBooks();
-    
+  },
+  methods: {
+    remove(data) {
+      this.books = this.books.filter(book => book.id !== data);
+    }
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 .booklist {
   display: flex;
   flex-wrap: wrap;

@@ -1,6 +1,6 @@
 <template>
   <div class="booklist">
-    <app-book-card v-for="book in books" :key="book.id" :book="book"></app-book-card>
+    <app-book-card @removedId="remove" v-for="book in books" :key="book.id" :book="book"></app-book-card>
     <div v-if="this.isLoading">Loading...</div>
   </div>
 </template>
@@ -17,7 +17,6 @@ export default {
   mixins: [userListsMixin],
 
   created() {
-    
     this.isLoading = true;
     db.collection("userData")
       .doc(this.userID)
@@ -35,10 +34,12 @@ export default {
       });
 
     this.loadBooks();
-    
-    
   },
-  
+  methods: {
+    remove(data) {
+      this.books = this.books.filter(book => book.id !== data);
+    }
+  }
 };
 </script>
 

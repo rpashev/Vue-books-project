@@ -1,13 +1,13 @@
 import db from "../firebase-config";
 export const userListsMixin = {
-    
+
     data() {
         return {
             books: [],
             bookIDs: [],
             userID: localStorage.getItem("userID"),
             isLoading: false,
-        
+
         };
     },
 
@@ -24,8 +24,9 @@ export const userListsMixin = {
                     });
                 })
                 .catch(err => alert(err));
-                
-        }
+
+        },
+
     },
-   
+
 }
