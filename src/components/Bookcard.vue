@@ -42,7 +42,12 @@ import firebase from "firebase/app";
 import { checkListsMixin } from "../mixins/CheckListsMixin";
 
 export default {
-  props: ["book"],
+  
+  props: {
+    book: {
+      required: true
+    }
+  },
   mixins: [checkListsMixin],
   data() {
     return {
@@ -88,7 +93,7 @@ export default {
             toRead: firebase.firestore.FieldValue.arrayRemove(this.book.id)
           });
         this.isInToRead = false;
-        this.$emit("removedId", this.book.id)
+        this.$emit("removedId", this.book.id);
       } catch (err) {
         alert(err);
       }
@@ -103,12 +108,13 @@ export default {
             alreadyRead: firebase.firestore.FieldValue.arrayRemove(this.book.id)
           });
         this.isInAlreadyRead = false;
-        this.$emit("removedIdEvent", this.book.id)
+        this.$emit("removedIdEvent", this.book.id);
       } catch (err) {
         alert(err);
       }
     }
-  }
+  },
+  
 };
 </script>
 

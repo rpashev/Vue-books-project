@@ -13,6 +13,7 @@ export const userListsMixin = {
 
     methods: {
         loadBooks() {
+            
             db.collection("books")
                 .get()
                 .then(snapshot => {
