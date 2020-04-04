@@ -5,6 +5,7 @@ import Register from '../src/components/auth/Register.vue'
 import ToReadList from '../src/components/ToReadList.vue'
 import AlreadyReadList from '../src/components/AlreadyReadList.vue'
 import AddABook from '../src/components/AddABook.vue'
+import NotFound from '../src/components/NotFound.vue'
 import VueRouter from 'vue-router'
 import firebase from "firebase/app";
 require("firebase/auth");
@@ -18,7 +19,8 @@ let router = new VueRouter({
         { path: '/register', component: Register, meta: { requiresGuest: true } },
         { path: '/to-read', component: ToReadList, meta: { requiresAuth: true } },
         { path: '/already-read', component: AlreadyReadList, meta: { requiresAuth: true } },
-        { path: '/add-book', component: AddABook, meta: { requiresAuth: true } }
+        { path: '/add-book', component: AddABook, meta: { requiresAuth: true } },
+        {path: '*', component: NotFound}
 
     ],
     mode: 'history'
