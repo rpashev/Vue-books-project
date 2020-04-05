@@ -1,7 +1,9 @@
 <template>
   <div class="booklist">
     <app-book-card @removedId="remove" v-for="book in books" :key="book.id" :book="book"></app-book-card>
-    <div v-if="this.isLoading">Loading...</div>
+    <div v-if="isLoading">Loading...</div>
+    <div v-if="!bookIDs.length && !isLoading">No books in this list yet</div>
+    
   </div>
 </template>
 
