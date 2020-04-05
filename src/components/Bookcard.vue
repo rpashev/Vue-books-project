@@ -133,6 +133,7 @@ export default {
   position: relative;
   width: 270px;
   height: 420px;
+  color:  #385502;
 }
 .card .card-title p {
   text-align: center;

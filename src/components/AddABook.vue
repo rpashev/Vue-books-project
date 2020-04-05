@@ -1,12 +1,12 @@
 <template>
   <form @submit.prevent="submitHandler">
     <label for="title">Title</label>
-    <input type="text" v-model="title" @blur="$v.title.$touch"/>
+    <input type="text" v-model="title" @blur="$v.title.$touch" />
     <template v-if="$v.title.$error">
       <p v-if="!$v.title.required" class="error">Title is required!</p>
     </template>
     <label for="author">Author</label>
-    <input type="text" v-model="author" @blur="$v.author.$touch"/>
+    <input type="text" v-model="author" @blur="$v.author.$touch" />
     <template v-if="$v.author.$error">
       <p v-if="!$v.author.required" class="error">Author is required!</p>
     </template>
@@ -52,10 +52,6 @@ export default {
           this.$router.push("/");
         })
         .catch(err => alert(err));
-
-      this.title = "";
-      this.author = "";
-      this.imageLink = "";
     }
   },
   validations: {
@@ -75,21 +71,37 @@ export default {
 
 <style scoped>
 form {
-  margin: 0 auto;
+  margin: 2rem auto;
   width: 600px;
+  font: bold #385502;
 }
 
 form input,
 label {
   display: block;
+  width: 400px;
 }
 input {
   margin: 0.5rem 0;
+  padding: 4px;
+  border: 2px solid #a2da3c;
 }
 p.error {
   text-align: left;
   background-color: #f8d7da;
   padding: 8px;
   border-radius: 3px;
+  width: 400px;
+}
+button {
+  text-align: center;
+  font-size: 1rem;
+  padding: 4px;
+  border-radius: 8%;
+  background: #385502;
+  width: 20%;
+  height: 2rem;
+  cursor: pointer;
+  color: white;
 }
 </style>

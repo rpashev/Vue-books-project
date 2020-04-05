@@ -3,7 +3,7 @@
     <input @input="search" class="search" placeholder="Search" v-model="searchQuery" />
     <div v-if="!searchQuery" class="booklist">
       <app-book-card v-for="book in books" :key="book.id" :book="book"></app-book-card>
-      <div v-if="this.isLoading">Loading...</div>
+      <div class="loader loading" v-if="this.isLoading"></div>
     </div>
     <div v-if="searchQuery" class="booklist">
       <app-book-card v-for="book in filteredBooks" :key="book.id" :book="book"></app-book-card>
@@ -63,5 +63,11 @@ export default {
 }
 .search {
   margin-left: 3rem;
+  padding: 4px;
+  border: 2px solid #a2da3c
+}
+.loading {
+  margin: 5rem auto;
+  
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
   <div class="booklist">
     <app-book-card @removedId="remove" v-for="book in books" :key="book.id" :book="book"></app-book-card>
-    <div v-if="isLoading">Loading...</div>
-    <div v-if="!bookIDs.length && !isLoading">No books in this list yet</div>
+    <div class="loader loading" v-if="isLoading"></div>
+    <div class ="loading" v-if="!bookIDs.length && !isLoading">No books in this list yet</div>
     
   </div>
 </template>
@@ -50,5 +50,9 @@ export default {
 .booklist {
   display: flex;
   flex-wrap: wrap;
+}
+.loading {
+  margin: 5rem auto;
+  font-size: 2rem
 }
 </style>

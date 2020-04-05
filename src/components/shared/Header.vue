@@ -4,9 +4,6 @@
       <router-link to="/" tag="li" exact>
         <a>Home</a>
       </router-link>
-      <router-link to="/about" tag="li" exact>
-        <a>About</a>
-      </router-link>
       <router-link v-if="!isLoggedIn" to="/login" tag="li" exact>
         <a>Login</a>
       </router-link>
@@ -26,7 +23,7 @@
         <a @click="logout">Logout</a>
       </router-link>
     </ul>
-    <p v-if="isLoggedIn">You are logged in with {{currentUser}}</p>
+    <p class="message" v-if="isLoggedIn">Logged in with {{currentUser}}</p>
   </header>
 </template>
 
@@ -47,7 +44,6 @@ export default {
         await firebase.auth().signOut();
         localStorage.removeItem("user");
         localStorage.removeItem("userID");
-        
       } catch (err) {
         alert(err);
       }
@@ -68,16 +64,31 @@ export default {
 
 <style scoped>
 header {
+  position: relative;
   display: flex;
   align-items: center;
 }
 ul {
   display: flex;
-  
 }
 ul li {
   list-style: none;
   margin: 2rem;
   cursor: pointer;
+}
+ul li a {
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: #385502;
+}
+.router-link-active {
+  text-decoration: underline;
+}
+.message {
+  color: #385502;
+  margin: 0;
+  position: absolute;
+  right: 10%;
+  font-size: 1.2rem;
 }
 </style>
