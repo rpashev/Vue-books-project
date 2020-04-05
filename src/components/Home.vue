@@ -21,7 +21,6 @@ export default {
   data() {
     return {
       books: [],
-      filteredBooks: [],
       isLoading: false,
       searchQuery: ""
     };
@@ -40,9 +39,9 @@ export default {
       })
       .catch(err => alert(err));
   },
-  methods: {
-    search() {
-      this.filteredBooks = this.books.filter(book => {
+  computed: {
+    filteredBooks() {
+      return this.books.filter(book => {
         if (
           book.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
           book.author.toLowerCase().includes(this.searchQuery.toLowerCase())
