@@ -1,7 +1,13 @@
 <template>
-  <div class="booklist">
-    <app-book-card v-for="book in books" :key="book.id" :book="book"></app-book-card>
-    <div v-if="this.isLoading">Loading...</div>
+  <div>
+    <input @input="search" class="search" placeholder="Search" v-model="searchQuery" />
+    <div v-if="!searchQuery" class="booklist">
+      <app-book-card v-for="book in books" :key="book.id" :book="book"></app-book-card>
+      <div v-if="this.isLoading">Loading...</div>
+    </div>
+    <div v-if="searchQuery" class="booklist">
+      <app-book-card v-for="book in filteredBooks" :key="book.id" :book="book"></app-book-card>
+    </div>
   </div>
 </template>
 
@@ -15,11 +21,13 @@ export default {
   data() {
     return {
       books: [],
-      isLoading: false
+      filteredBooks: [],
+      isLoading: false,
+      searchQuery: ""
     };
   },
-  
-    created() {
+
+  created() {
     this.isLoading = true;
     db.collection("books")
       .get()
@@ -31,8 +39,19 @@ export default {
         this.isLoading = false;
       })
       .catch(err => alert(err));
-    
   },
+  methods: {
+    search() {
+      this.filteredBooks = this.books.filter(book => {
+        if (
+          book.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          book.author.toLowerCase().includes(this.searchQuery.toLowerCase())
+        ) {
+          return book;
+        }
+      });
+    }
+  }
 };
 </script>
 
@@ -41,5 +60,8 @@ export default {
 .booklist {
   display: flex;
   flex-wrap: wrap;
+}
+.search {
+  margin-left: 3rem;
 }
 </style>

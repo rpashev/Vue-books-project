@@ -73,6 +73,7 @@ header {
 }
 ul {
   display: flex;
+  
 }
 ul li {
   list-style: none;
