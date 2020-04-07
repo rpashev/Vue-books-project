@@ -1,6 +1,6 @@
 <template>
     <div class="img-404">
-        <img src="https://www.everdurebyheston.com/assets/imgs/404.png" alt="">
+        <img src="images/404.png" alt="">
     </div>
 </template>
 

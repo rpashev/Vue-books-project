@@ -12,8 +12,7 @@ export const userListsMixin = {
     },
 
     methods: {
-        loadBooks() {
-            
+        loadBooks() { 
             db.collection("books")
                 .get()
                 .then(snapshot => {

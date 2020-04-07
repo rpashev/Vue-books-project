@@ -81,6 +81,9 @@ ul li a {
   font-size: 1.2rem;
   color: #385502;
 }
+ul li a:hover {
+  background: white
+}
 .router-link-active {
   text-decoration: underline;
 }

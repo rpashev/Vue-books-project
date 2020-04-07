@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input @input="search" class="search" placeholder="Search" v-model="searchQuery" />
+    <input class="search" placeholder="Search" v-model="searchQuery" />
     <div v-if="!searchQuery" class="booklist">
       <app-book-card v-for="book in books" :key="book.id" :book="book"></app-book-card>
       <div class="loader loading" v-if="this.isLoading"></div>
