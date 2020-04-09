@@ -17,7 +17,7 @@
     </template>
     <label for="repeatPassword">Repeat password</label>
     <input
-      type="re-password"
+      type="password"
       v-model="repeatPassword"
       @blur="$v.repeatPassword.$touch"
       class="error"

@@ -12,7 +12,24 @@ export const userListsMixin = {
     },
 
     methods: {
-        loadBooks() { 
+        getBookIDs(list) {
+            this.isLoading = true;
+            db.collection("userData")
+                .doc(this.userID)
+                .get()
+                .then(doc => {
+                    if (doc.exists) {
+                        doc.data()[list].forEach(id => this.bookIDs.unshift(id));
+                        this.isLoading = false;
+                    } else {
+                        alert("No such document!");
+                    }
+                })
+                .catch(function (error) {
+                    alert("Error getting document:", error);
+                });
+        },
+        loadBooks() {
             db.collection("books")
                 .get()
                 .then(snapshot => {
@@ -26,6 +43,7 @@ export const userListsMixin = {
                 .catch(err => alert(err));
 
         },
+
 
     },
 

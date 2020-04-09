@@ -18,7 +18,7 @@ let router = new VueRouter({
         { path: '/to-read', component: ToReadList, meta: { requiresAuth: true } },
         { path: '/already-read', component: AlreadyReadList, meta: { requiresAuth: true } },
         { path: '/add-book', component: AddABook, meta: { requiresAuth: true } },
-        {path: '*', component: NotFound}
+        { path: '*', component: NotFound}
 
     ],
     mode: 'history'

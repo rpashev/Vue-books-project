@@ -1,9 +1,12 @@
 import db from "../firebase-config";
 export const checkListsMixin = {
-    
+
     created() {
-        this.checkLists("toRead");
-        this.checkLists("alreadyRead");
+        if (this.userID) {
+            this.checkLists("toRead");
+            this.checkLists("alreadyRead");
+        }
+
     },
     methods: {
         checkLists(list) {

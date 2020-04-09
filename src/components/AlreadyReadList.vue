@@ -8,7 +8,6 @@
 
 <script>
 import Card from "./Bookcard";
-import db from "../firebase-config";
 import { userListsMixin } from "../mixins/UserListsMixin";
 
 export default {
@@ -18,24 +17,10 @@ export default {
   mixins: [userListsMixin],
 
   created() {
-    this.isLoading = true;
-    db.collection("userData")
-      .doc(this.userID)
-      .get()
-      .then(doc => {
-        if (doc.exists) {
-          doc.data().alreadyRead.forEach(id => this.bookIDs.unshift(id));
-          this.isLoading = false;
-        } else {
-          alert("No such document!");
-        }
-      })
-      .catch(function(error) {
-        alert("Error getting document:", error);
-      });
-
+    this.getBookIDs("alreadyRead")
     this.loadBooks();
   },
+  
   methods: {
     remove(data) {
       this.books = this.books.filter(book => book.id !== data);
