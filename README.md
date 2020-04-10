@@ -1,5 +1,5 @@
 # vue-books-project
-An app that provides more structure to people who like reading books. 
+An app that provides more structure to people who read books often.
 
 
 ## Functionality
@@ -13,12 +13,13 @@ An app that provides more structure to people who like reading books.
 ### User functionality
 - Browsing through books on Home page
 - Searching for books by name or author on Home page
-- Adding books to Already Read list
-- Adding books to To Read list
-- Removing books from Already Read list
-- Removing books from To Read list
-- Viewing Already Read list
-- Viewing To Read list
+- Adding books to "Already Read" list
+- Adding books to "To Read" list
+- Removing books from "Already Read" list
+- Removing books from "To Read" list
+- Viewing "Already Read" list
+- Viewing "To Read" list
+- Adding a new book to public book list from "Add a Book" page
 
 
 
